@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <div th:insert="links.html"></div>
+</head>
+<body>
+    <div th:insert="navbar.html"></div>
+
+    <div class="row justify-content-center">
+      <div class="col-3" >
+        <ul class="list-group mt-3" th:object="${item}">
+          <li class="list-group-item bg-body-secondary"> <div><label>Item Id</label> <input class="form-control" th:value="${item.id}" ></div> </li>
+          <li class="list-group-item bg-body-secondary"> <div><label>Item Name</label> <input class="form-control" th:value="${item.name}" ></div></li>
+          <li class="list-group-item bg-body-secondary"> <div><label>Item Description</label> <input class="form-control" th:value="${item.description}" ></div></li>
+          <li class="list-group-item bg-body-secondary"> <div><label>Item Price</label> <input class="form-control" th:value="${item.price}" ></div></li>
+        </ul>
+      </div>
+    </div>
+
+</body>
+</html>
