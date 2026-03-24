@@ -1,0 +1,37 @@
+<div class="card px-3 py-2 my-3 w-75 mx-auto">
+
+  <form method="get" class="d-flex justify-content-center" th:action="@{'/products'}">
+
+<!--    <div class="form-floating me-3">-->
+<!--      <select class="form-select" id="category_id" aria-label="sort_by" name="category_id">-->
+<!--        <option th:each="category:${categories}"-->
+<!--                th:value="${categoty.name}"-->
+<!--                th:text="${category.name}"></option>-->
+<!--      </select>-->
+<!--      <label for="sort_by">Sort Category:</label>-->
+<!--    </div>-->
+
+    <div class="form-floating me-3">
+      <select class="form-select" id="sort_by" aria-label="sort_by" name="sort_by">
+        <option value="name" th:selected="${sortBy.equals('name')}">Name</option>
+        <option value="price" th:selected="${sortBy.equals('price')}">Price</option>
+      </select>
+      <label for="sort_by">Sort by:</label>
+    </div>
+
+    <div class="form-floating me-3">
+      <select class="form-select" id="sort_order" aria-label="sort_order" name="sort_order">
+        <option value="ASC" th:selected="${sortOrder.equals('ASC')}">Ascending</option>
+        <option value="DESC" th:selected="${sortOrder.equals('DESC')}">Descending</option>
+      </select>
+      <label for="sort_order">Order:</label>
+    </div>
+
+    <div class="form-floating me-3">
+      <input type="text" class="form-control" id="size1" name="size" placeholder="size"  th:if="${param.size != null}" th:value="${param.size}">
+      <input type="text" class="form-control" id="size2" name="size" placeholder="size"  th:if="${param.size == null}" value="3">
+      <label>Page size:</label>
+    </div>
+    <button type="submit" class="btn btn-success" style="height: 43.5pt;">Sort</button>
+  </form>
+</div>

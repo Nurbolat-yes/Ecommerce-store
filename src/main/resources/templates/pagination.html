@@ -1,0 +1,24 @@
+<nav aria-label="Pagination navigation" class="mt-4">
+    <ul class="pagination justify-content-center">
+        <li th:class="${currentPage == 0 ? 'page-item disabled' : 'page-item'}">
+            <a th:if="${search!=null}"  class="page-link" th:href="@{'/products?page=' + ${currentPage - 1} +'&size=' + ${pageSize} + '&sort_by=' + ${sortBy} + '&sort_order=' + ${sortOrder} + '&search=' + ${search}}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+            <a th:if="${search==null}"  class="page-link" th:href="@{'/products?page=' + ${currentPage - 1} +'&size=' + ${pageSize} + '&sort_by=' + ${sortBy} + '&sort_order=' + ${sortOrder}}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <li th:each="pageNumber : ${pageNumbers}" class="page-item">
+            <a th:if="${search!=null}" th:class="${pageNumber == currentPage ? 'page-link active' : 'page-link'}"  th:href="@{'/products?page=' + ${pageNumber} + '&size=' + ${pageSize} + '&sort_by=' + ${sortBy} + '&sort_order=' + ${sortOrder} + '&search=' + ${search}}" th:text="${pageNumber+1}"></a>
+            <a th:if="${search==null}" th:class="${pageNumber == currentPage ? 'page-link active' : 'page-link'}"  th:href="@{'/products?page=' + ${pageNumber} + '&size=' + ${pageSize} + '&sort_by=' + ${sortBy} + '&sort_order=' + ${sortOrder}}" th:text="${pageNumber+1}"></a>
+        </li>
+        <li th:class="${currentPage == totalPages - 1 ? 'page-item disabled' : 'page-item'}">
+            <a th:if="${search!=null}" class="page-link" th:href="@{'/products?page=' + ${currentPage + 1} + '&size=' + ${pageSize} + '&sort_by=' + ${sortBy} + '&sort_order=' + ${sortOrder} + '&search=' + ${search}}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+            <a th:if="${search==null}" class="page-link" th:href="@{'/products?page=' + ${currentPage + 1} + '&size=' + ${pageSize} + '&sort_by=' + ${sortBy} + '&sort_order=' + ${sortOrder}}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
