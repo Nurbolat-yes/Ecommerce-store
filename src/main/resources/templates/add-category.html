@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <div th:insert="links.html"></div>
+</head>
+<body>
+<div th:insert="navbar.html"></div>
+
+<div class="container w-25 mt-4">
+  <form class="form-control" method="post" action="/categories/add">
+    <div class="mb-3">
+      <label for="name" class="form-label">Category name</label>
+      <input type="text" name="name" class="form-control" id="name">
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+  </form>
+</div>
+</body>
+</html>

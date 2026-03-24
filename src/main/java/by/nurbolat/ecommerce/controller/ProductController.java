@@ -6,6 +6,7 @@ import by.nurbolat.ecommerce.db.repository.CategoryRepository;
 import by.nurbolat.ecommerce.db.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.boot.Banner;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -75,7 +77,28 @@ public class ProductController {
 
     @PostMapping(value = "products/add")
     public String addNewProduct(Product product){
+        product.setCreatedAt(LocalDateTime.now());
         productRepository.save(product);
+        return "redirect:/products";
+    }
+
+    @GetMapping(value = "/products/update/{id}")
+    public String getUpdatePage(Model model, @PathVariable Long id){
+        model.addAttribute("product",productRepository.findById(id).get());
+        model.addAttribute("categories",categoryRepository.findAll());
+        return "update-product";
+    }
+
+    @PostMapping(value = "/products/update")
+    public String updateProduct(Product product){
+        product.setCreatedAt(LocalDateTime.now());
+        productRepository.save(product);
+        return "redirect:/products";
+    }
+
+    @PostMapping(value = "/products/delete/{id}")
+    public String deleteProduct(@PathVariable Long id){
+        productRepository.deleteById(id);
         return "redirect:/products";
     }
 

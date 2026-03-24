@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <div th:insert="links.html"></div>
+</head>
+<body>
+<div th:insert="navbar.html"></div>
+
+<div class="container w-25 mt-4" th:object="${product}">
+  <form class="form-control" method="post" action="/products/update">
+
+    <div class="mb-3">
+      <label for="name" class="form-label">Product ID : <span th:value="${product.id}"></span> </label>
+      <input type="hidden" name="id" class="form-control" id="id" th:value="${product.id}">
+    </div>
+
+    <div class="mb-3">
+      <label for="name" class="form-label">Product name</label>
+      <input type="text" name="name" class="form-control" id="name" th:value="${product.name}">
+    </div>
+
+    <div class="mb-3">
+      <label for="image_url" class="form-label">Product image-url</label>
+      <input type="url" name="imageUrl" class="form-control" id="image_url" th:value="${product.imageUrl}">
+    </div>
+
+    <div class="mb-3">
+      <label for="price" class="form-label">Product price</label>
+      <input type="text" name="price" class="form-control" id="price" th:value="${product.price}">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Choose product category : </label>
+      <label>
+        <select class="form-select" name="category.id">
+          <option th:each="category : ${categories}"
+                  th:text="${category.name}"
+                  th:value="${category.id}"
+                  th:selected="${category.id==product.category.id}">
+          </option>
+        </select>
+      </label>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update</button>
+  </form>
+</div>
+</body>
+</html>

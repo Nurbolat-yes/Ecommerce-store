@@ -2,15 +2,6 @@
 
   <form method="get" class="d-flex justify-content-center" th:action="@{'/products'}">
 
-<!--    <div class="form-floating me-3">-->
-<!--      <select class="form-select" id="category_id" aria-label="sort_by" name="category_id">-->
-<!--        <option th:each="category:${categories}"-->
-<!--                th:value="${categoty.name}"-->
-<!--                th:text="${category.name}"></option>-->
-<!--      </select>-->
-<!--      <label for="sort_by">Sort Category:</label>-->
-<!--    </div>-->
-
     <div class="form-floating me-3">
       <select class="form-select" id="sort_by" aria-label="sort_by" name="sort_by">
         <option value="name" th:selected="${sortBy.equals('name')}">Name</option>

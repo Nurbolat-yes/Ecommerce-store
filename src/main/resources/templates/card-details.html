@@ -18,13 +18,9 @@
         <h5 class="card-title" th:text="${product.name}"> </h5>
         <label class="form-label">Product category : <span class="card-text" th:text="${product.category.name}"> </span></label>
 
-
         <div class="reviews mt-2">
-
           <div class="accordion" id="reviewsAccordion">
-
             <div class="accordion-item">
-
               <!-- BUTTON -->
               <h2 class="accordion-header" id="headingReviews">
                 <button class="accordion-button collapsed"
@@ -36,28 +32,22 @@
                   Reviews
                 </button>
               </h2>
-
               <!-- CONTENT -->
               <div id="collapseReviews"
                    class="accordion-collapse collapse"
                    aria-labelledby="headingReviews"
                    data-bs-parent="#reviewsAccordion">
-
                 <div class="accordion-body">
-
                   <!-- если нет отзывов -->
                   <div th:if="${#lists.isEmpty(product.reviews)}">
                     <p>No reviews yet</p>
                   </div>
-
                   <!-- список отзывов -->
                   <div th:each="review : ${product.reviews}" class="card p-3 mb-3">
-
                     <div class="d-flex justify-content-between">
                       <strong th:text="${review.reviewOwner}">owner</strong>
                       <span th:text="${review.createdAt}">date</span>
                     </div>
-
                     <!-- рейтинг -->
                     <div class="mt-2">
                       <span>
@@ -65,26 +55,23 @@
                         <span th:text="${#strings.repeat('☆ ', 5 - (review.rating.ordinal() + 1))}"></span>
                       </span>
                     </div>
-
                     <div class="mt-2">
                       <p th:text="${review.comment}">comment</p>
                     </div>
-
                   </div>
-
                 </div>
-
               </div>
-
             </div>
-
           </div>
-
         </div>
 
-        <h6 class="card-title mt-1" th:text="${product.price} + '$' "> </h6>
-        <a th:href="@{'/products/update/' + ${product.id}}" class="btn btn-warning">Update</a>
-        <a th:href="@{'/products/delete/' + ${product.id}}" class="btn btn-sm btn-danger">Delete</a>
+        <div>
+          <h6 class="card-title mt-1" th:text="${product.price} + '$' "> </h6>
+          <form method="post" th:action="@{'/products/delete/' + ${product.id}}">
+            <a th:href="@{'/products/update/' + ${product.id}}" class="btn btn-warning">Update</a>
+            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+          </form>
+        </div>
       </div>
     </div>
   </div>
