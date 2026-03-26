@@ -2,11 +2,14 @@ package by.nurbolat.ecommerce.controller;
 
 import by.nurbolat.ecommerce.db.entity.Category;
 import by.nurbolat.ecommerce.db.entity.Product;
+import by.nurbolat.ecommerce.db.entity.Review;
 import by.nurbolat.ecommerce.db.repository.CategoryRepository;
 import by.nurbolat.ecommerce.db.repository.ProductRepository;
+import by.nurbolat.ecommerce.exception.CategoryNotFoundException;
+import by.nurbolat.ecommerce.service.CategoryService;
+import by.nurbolat.ecommerce.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.boot.Banner;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -25,7 +29,9 @@ import java.util.stream.IntStream;
 @RequiredArgsConstructor
 public class ProductController {
     private final ProductRepository productRepository;
-    private final CategoryRepository categoryRepository;
+    private final CategoryService categoryService;
+    private final ReviewService reviewService;
+
 
     @GetMapping(value = "/products/{id}")
     public String getProductById(@PathVariable Long id,Model model){
@@ -69,8 +75,8 @@ public class ProductController {
     }
 
     @GetMapping(value = "products/add")
-    public String getPageAddNewProduct(Model model){
-        List<Category> categories = categoryRepository.findAll();
+    public String getPageAddNewProduct(Model model) throws CategoryNotFoundException {
+        List<Category> categories = categoryService.findAll();
         model.addAttribute("categories",categories);
         return "add-product";
     }
@@ -83,9 +89,9 @@ public class ProductController {
     }
 
     @GetMapping(value = "/products/update/{id}")
-    public String getUpdatePage(Model model, @PathVariable Long id){
+    public String getUpdatePage(Model model, @PathVariable Long id) throws CategoryNotFoundException {
         model.addAttribute("product",productRepository.findById(id).get());
-        model.addAttribute("categories",categoryRepository.findAll());
+        model.addAttribute("categories",categoryService.findAll());
         return "update-product";
     }
 
@@ -100,6 +106,25 @@ public class ProductController {
     public String deleteProduct(@PathVariable Long id){
         productRepository.deleteById(id);
         return "redirect:/products";
+    }
+
+    // Review controllers
+
+    @GetMapping(value = "/products/add-review/{id}")
+    public String getAddReviewPage(@PathVariable Long id, Model model){
+
+        model.addAttribute("productId",id);
+
+        return "add-review";
+    }
+
+    @PostMapping(value = "/products/add-review/{product_id}")
+    public String addReview(Review review){
+
+        review.setCreatedAt(LocalDate.now());
+        reviewService.addReview(review);
+
+        return "redirect:/products/{product_id}";
     }
 
 }

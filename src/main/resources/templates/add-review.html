@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <div th:insert="links.html"></div>
+    <style>
+        .star-rating {
+            direction: rtl; /* trick for hover */
+            display: inline-flex;
+        }
+
+        .star-rating input {
+            display: none;
+        }
+
+        .star-rating label {
+            font-size: 30px;
+            color: lightgray;
+            cursor: pointer;
+        }
+
+        /* hover effect */
+        .star-rating label:hover,
+        .star-rating label:hover ~ label {
+            color: gold;
+        }
+
+        /* selected */
+        .star-rating input:checked ~ label {
+            color: gold;
+        }
+    </style>
+</head>
+<body>
+<div th:insert="navbar.html"></div>
+
+<div class="container w-25 mt-4">
+    <form class="form-control" method="post" th:action="@{'/products/add-review/'+ ${productId}}">
+
+        <div class="mb-3">
+            <div class="mb-3">
+                <label class="form-label">Rating</label>
+
+                <div class="star-rating">
+                    <input type="radio" id="5" name="rating" value="FIVE_STAR"><label for="5">★</label>
+                    <input type="radio" id="4" name="rating" value="FOUR_STAR"><label for="4">★</label>
+                    <input type="radio" id="3" name="rating" value="THREE_STAR"><label for="3">★</label>
+                    <input type="radio" id="2" name="rating" value="TWO_STAR"><label for="2">★</label>
+                    <input type="radio" id="1" name="rating" value="ONE_STAR"><label for="1">★</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="comment" class="form-label">Leave Comment</label>
+            <input type="text" name="comment" class="form-control" id="comment">
+        </div>
+
+        <div class="mb-3">
+            <label for="reviewOwner" class="form-label">Your name</label>
+            <input type="text" name="reviewOwner" class="form-control" id="reviewOwner">
+        </div>
+
+        <input type="hidden" name="product" th:value="${productId}">
+
+        <button type="submit" class="btn btn-primary">Leave review</button>
+    </form>
+</div>
+</body>
+</html>

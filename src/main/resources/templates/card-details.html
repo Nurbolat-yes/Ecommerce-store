@@ -67,10 +67,19 @@
 
         <div>
           <h6 class="card-title mt-1" th:text="${product.price} + '$' "> </h6>
-          <form method="post" th:action="@{'/products/delete/' + ${product.id}}">
-            <a th:href="@{'/products/update/' + ${product.id}}" class="btn btn-warning">Update</a>
-            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-          </form>
+
+          <div>
+            <form method="get" th:action="@{'/products/update/' + ${product.id}}">
+              <button type="submit" class="btn btn-warning">Update</button>
+            </form>
+            <form method="post" th:action="@{'/products/delete/' + ${product.id}}">
+              <button type="submit" class="btn btn btn-danger">Delete</button>
+            </form>
+            <form method="get" th:action="@{'/products/add-review/' + ${product.id}}">
+              <button type="submit" class="btn btn-primary">Leave review</button>
+            </form>
+          </div>
+
         </div>
       </div>
     </div>
