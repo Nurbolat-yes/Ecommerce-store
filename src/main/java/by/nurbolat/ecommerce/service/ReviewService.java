@@ -10,7 +10,7 @@ public interface ReviewService {
 
     Optional<Review> getReview(Long id);
 
-    List<Review> getReviews() throws ReviewNotFoundException;
+    List<Review> getReviews();
 
     Review addReview(Review review);
 

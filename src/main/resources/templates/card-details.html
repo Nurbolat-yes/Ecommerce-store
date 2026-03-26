@@ -75,7 +75,7 @@
             <form method="post" th:action="@{'/products/delete/' + ${product.id}}">
               <button type="submit" class="btn btn btn-danger">Delete</button>
             </form>
-            <form method="get" th:action="@{'/products/add-review/' + ${product.id}}">
+            <form method="get" th:action="@{'/add-review/' + ${product.id}}">
               <button type="submit" class="btn btn-primary">Leave review</button>
             </form>
           </div>

@@ -38,20 +38,14 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<Category> findAll() throws CategoryNotFoundException {
+    public List<Category> getCategories() {
 
-        List<Category> categories = categoryRepository.findAll();
+        return categoryRepository.findAll();
 
-        if (categories.isEmpty()){
-            throw new CategoryNotFoundException();
-        }
-
-
-        return categories;
     }
 
     @Override
-    public Optional<Category> findById(Long id){
+    public Optional<Category> getCategory(Long id){
         return categoryRepository.findById(id);
     }
 

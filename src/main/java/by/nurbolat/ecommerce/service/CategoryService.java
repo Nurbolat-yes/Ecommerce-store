@@ -8,9 +8,9 @@ import java.util.Optional;
 
 public interface CategoryService {
 
-    Optional<Category> findById(Long id);
+    Optional<Category> getCategory(Long id);
 
-    List<Category> findAll() throws CategoryNotFoundException;
+    List<Category> getCategories();
 
     Category addCategory(Category category);
 

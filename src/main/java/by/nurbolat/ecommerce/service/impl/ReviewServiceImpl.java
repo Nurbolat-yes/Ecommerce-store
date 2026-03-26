@@ -7,6 +7,7 @@ import by.nurbolat.ecommerce.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,16 +23,13 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public List<Review> getReviews() throws ReviewNotFoundException {
-
-        if (reviewRepository.findAll().isEmpty())
-            throw new ReviewNotFoundException();
-
+    public List<Review> getReviews(){
         return reviewRepository.findAll();
     }
 
     @Override
     public Review addReview(Review review) {
+        review.setCreatedAt(LocalDate.now());
         return reviewRepository.save(review);
     }
 
