@@ -34,7 +34,7 @@ public class Product {
 
     private LocalDateTime createdAt;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews = new ArrayList<>();
 
 }
