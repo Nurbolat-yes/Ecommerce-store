@@ -5,12 +5,22 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-2">
         <li class="nav-item">
-          <a class="nav-link active" href="/products/add">Add Product</a>
+          <a class="btn btn-primary btn-sm" href="/products/add">Add Product</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="/categories/add">Add Category</a>
+          <a class="btn btn-primary btn-sm" href="/categories/add">Add Category</a>
+        </li>
+        <li th:if="${username != null}" class="nav-item">
+          <form action="/logout" method="post" class="d-flex align-items-center gap-2">
+            <span class="nav-link active mb-0">
+              Username: <span th:text="${username}"></span>
+            </span>
+            <button type="submit" class="btn btn-secondary btn-sm">
+              Logout
+            </button>
+          </form>
         </li>
       </ul>
       <form class="d-flex" role="search" method="get" action="/products">
@@ -18,7 +28,7 @@
         <input hidden="hidden" name="size" type="text" th:value="${pageSize}" />
         <input hidden="hidden" name="sort_by" type="text" th:value="${sortBy}" />
         <input hidden="hidden" name="sort_order" type="text" th:value="${sortOrder}" />
-        <button class="btn btn-outline-success" type="submit">Search</button>
+        <button class="btn btn-outline-primary" type="submit">Search</button>
       </form>
     </div>
   </div>

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class ReviewController {
     private final ReviewService reviewService;
 
-    @GetMapping(value = "/add-review/{id}")
+    @GetMapping(value = "/products/{id}/add-review")
     public String getAddReviewPage(@PathVariable Long id, Model model){
 
         model.addAttribute("productId",id);
@@ -22,7 +22,7 @@ public class ReviewController {
         return "add-review";
     }
 
-    @PostMapping(value = "/add-review/{product_id}")
+    @PostMapping(value = "/products/{product_id}/add-review")
     public String addReview(Review review){
 
         reviewService.addReview(review);

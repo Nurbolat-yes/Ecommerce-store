@@ -71,14 +71,14 @@
           </div>
 
           <div class="d-flex justify-content-center gap-3 mt-3">
+            <form method="get" th:action="@{'/products/' + ${product.id}+'/add-review'}">
+              <button type="submit" class="btn btn-success">Leave review</button>
+            </form>
             <form method="get" th:action="@{'/products/update/' + ${product.id}}">
               <button type="submit" class="btn btn-warning">Update</button>
             </form>
             <form method="post" th:action="@{'/products/delete/' + ${product.id}}">
               <button type="submit" class="btn btn-danger">Delete</button>
-            </form>
-            <form method="get" th:action="@{'/add-review/' + ${product.id}}">
-              <button type="submit" class="btn btn-primary">Leave review</button>
             </form>
           </div>
 

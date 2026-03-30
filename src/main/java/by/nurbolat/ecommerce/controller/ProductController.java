@@ -5,6 +5,7 @@ import by.nurbolat.ecommerce.exception.CategoryNotFoundException;
 import by.nurbolat.ecommerce.exception.ProductNotFoundException;
 import by.nurbolat.ecommerce.service.CategoryService;
 import by.nurbolat.ecommerce.service.ProductService;
+import by.nurbolat.ecommerce.service.UserService;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.data.domain.Page;
@@ -21,11 +22,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ProductController {
     private final ProductService productService;
     private final CategoryService categoryService;
+    private final UserService userService;
 
 
     @GetMapping(value = "/products/{id}")
     public String getProductById(@PathVariable Long id,Model model){
         model.addAttribute("product",productService.getProduct(id).get());
+        model.addAttribute("username",userService.getCurrentUsername());
         return "card-details";
     }
 
@@ -37,6 +40,7 @@ public class ProductController {
                                         @RequestParam(value = "sort_by" ,required = false,defaultValue = "price") String sortBy,
                                         @RequestParam(value = "sort_order",required = false,defaultValue = "asc") String sortOrder){
 
+        model.addAttribute("username",userService.getCurrentUsername());
 
         Page<Product> productPage = productService.getProductsPageWithSortAndSearch(pageNumber,pageSize,sortBy,sortOrder,search);
 
@@ -58,6 +62,7 @@ public class ProductController {
     @GetMapping(value = "products/add")
     public String getPageAddNewProduct(Model model){
         model.addAttribute("categories",categoryService.getCategories());
+        model.addAttribute("username",userService.getCurrentUsername());
         return "add-product";
     }
 
@@ -71,6 +76,7 @@ public class ProductController {
     public String getUpdatePage(Model model, @PathVariable Long id) throws CategoryNotFoundException {
         model.addAttribute("product",productService.getProduct(id).get());
         model.addAttribute("categories",categoryService.getCategories());
+        model.addAttribute("username",userService.getCurrentUsername());
         return "update-product";
     }
 
